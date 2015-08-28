@@ -12,9 +12,8 @@ class Image
 		end
 	end
 
+	def blur
 
-	def ==(image)
-		self.data == image.data
 	end
 end
 
