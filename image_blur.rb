@@ -14,9 +14,9 @@ class Image
 
 	def blur
 		ones = []
-		blur = @data
+		blur = []
 
-		# Find the ones
+		# Find the ones to blur
 		@data.each_index do |row|
 			@data[row].each_index do |cell|
 				if @data[row][cell] == 1
@@ -25,7 +25,19 @@ class Image
 			end
 		end
 		puts ones.inspect
+
+		@data.each do |row|
+			blur << row
+		end
+
+		ones.each do |row, cell|
+			blur[row-1][cell] = 1
+		end
+		puts blur.inspect
+
 	end
+
+
 end
 
 image = Image.new([
@@ -35,4 +47,5 @@ image = Image.new([
   [0, 0, 0, 0]
 ])
 
+image.output_image
 image.blur
