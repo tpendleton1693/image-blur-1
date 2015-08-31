@@ -16,7 +16,9 @@ class TestImageBlur < Minitest::Test
       [0, 1, 0, 0],
       [0, 0, 0, 0]
     ])
-    assert_equal(expected_image, image.blur)
+
+    image.blur
+    assert_equal(expected_image, image)
   end
 
 end
