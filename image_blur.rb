@@ -1,6 +1,6 @@
 class Image
 	attr_reader :data
-
+	include Comparable
 	def initialize(data)
 		@data = data
 	end
@@ -12,29 +12,39 @@ class Image
 		end
 	end
 
+	def <=>(img)
+		self.data <=> img.data
+	end
+
 	def blur
-		ones = []
-		blur = []
+		blur = @data.map do |x|
+			x.dup
+		end
 
 		# Find the ones to blur
 		@data.each_index do |row|
 			@data[row].each_index do |cell|
 				if @data[row][cell] == 1
-					ones << [row, cell]
+					if blur[row] != blur[0]
+						blur[row-1][cell] = 1
+					end
+
+					if row != blur.length - 1
+						blur[row+1][cell] = 1
+					end
+
+					if blur[row][cell] != blur[row][0]
+						blur[row][cell-1] = 1
+					end
+
+					if cell != blur[row].length - 1
+						blur[row][cell+1] = 1
+					end
 				end
 			end
 		end
-		puts ones.inspect
 
-		@data.each do |row|
-			blur << row
-		end
-
-		ones.each do |row, cell|
-			blur[row-1][cell] = 1
-		end
-		puts blur.inspect
-
+		@data = blur
 	end
 
 
@@ -47,5 +57,6 @@ image = Image.new([
   [0, 0, 0, 0]
 ])
 
-image.output_image
-image.blur
+# image.output_image
+# image.blur
+# image.output_image
