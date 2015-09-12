@@ -1,7 +1,7 @@
 require_relative "image_blur"
-require "test/unit"
+require "minitest/autorun"
 
-class TestImageBlur < Test::Unit::TestCase
+class TestImageBlur < Minitest::Test
 
   def test_blur
     image = Image.new([

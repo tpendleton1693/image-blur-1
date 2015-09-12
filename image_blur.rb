@@ -25,19 +25,19 @@ class Image
 		@data.each_index do |row|
 			@data[row].each_index do |cell|
 				if @data[row][cell] == 1
-					if blur[row] != blur[0]
+					unless row == 0
 						blur[row-1][cell] = 1
 					end
 
-					if row != blur.length - 1
+					unless row == blur.length - 1
 						blur[row+1][cell] = 1
 					end
 
-					if blur[row][cell] != blur[row][0]
+					unless cell == 0
 						blur[row][cell-1] = 1
 					end
 
-					if cell != blur[row].length - 1
+					unless cell == blur[row].length - 1
 						blur[row][cell+1] = 1
 					end
 				end
